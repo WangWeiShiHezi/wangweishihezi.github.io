@@ -1,5 +1,37 @@
 <?xml version='1.0' encoding='UTF-8'?>
-<rss xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/" version="2.0"><channel><title>石河子王卫的博客</title><link>https://wangweishihezi.github.io</link><description>我是石河子的王卫，这里记录着我的日常</description><copyright>石河子王卫的博客</copyright><docs>http://www.rssboard.org/rss-specification</docs><generator>python-feedgen</generator><image><url>https://avatars.githubusercontent.com/u/96246779?v=4&amp;size=64</url><title>avatar</title><link>https://wangweishihezi.github.io</link></image><lastBuildDate>Fri, 18 Jul 2025 15:21:09 +0000</lastBuildDate><managingEditor>石河子王卫的博客</managingEditor><ttl>60</ttl><webMaster>石河子王卫的博客</webMaster><item><title>LibreTV - 免费在线视频搜索与观看平台</title><link>https://wangweishihezi.github.io/post/LibreTV%20-%20-mian-fei-zai-xian-shi-pin-sou-suo-yu-guan-kan-ping-tai.html</link><description>```
+<rss xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/" version="2.0"><channel><title>石河子王卫的博客</title><link>https://wangweishihezi.github.io</link><description>我是石河子的王卫，这里记录着我的日常</description><copyright>石河子王卫的博客</copyright><docs>http://www.rssboard.org/rss-specification</docs><generator>python-feedgen</generator><image><url>https://avatars.githubusercontent.com/u/96246779?v=4&amp;size=64</url><title>avatar</title><link>https://wangweishihezi.github.io</link></image><lastBuildDate>Fri, 18 Jul 2025 15:26:50 +0000</lastBuildDate><managingEditor>石河子王卫的博客</managingEditor><ttl>60</ttl><webMaster>石河子王卫的博客</webMaster><item><title>如何删除docker里面的项目</title><link>https://wangweishihezi.github.io/post/ru-he-shan-chu-docker-li-mian-de-xiang-mu.html</link><description>
+```
+#!/bin/bash
+
+停止所有容器
+
+docker stop $(docker ps -q)
+
+
+删除所有容器
+
+docker rm $(docker ps -a -q)
+
+
+删除所有未被使用的镜像
+
+docker image prune -a -f
+
+删除所有未被使用的卷
+
+docker volume prune -f
+
+```
+
+
+你可以将此脚本保存为 cleanup_docker.sh，然后运行它来清理Docker项目：
+
+```
+chmod +x cleanup_docker.sh
+
+./cleanup_docker.sh
+
+```。</description><guid isPermaLink="true">https://wangweishihezi.github.io/post/ru-he-shan-chu-docker-li-mian-de-xiang-mu.html</guid><pubDate>Fri, 18 Jul 2025 15:26:17 +0000</pubDate></item><item><title>LibreTV - 免费在线视频搜索与观看平台</title><link>https://wangweishihezi.github.io/post/LibreTV%20-%20-mian-fei-zai-xian-shi-pin-sou-suo-yu-guan-kan-ping-tai.html</link><description>```
 docker run -d \
   --name libretv \
   --restart unless-stopped \
