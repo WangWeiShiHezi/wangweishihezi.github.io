@@ -1,5 +1,4 @@
-
-
+```
 docker run -d \
   --name libretv \
   --restart unless-stopped \
@@ -7,6 +6,10 @@ docker run -d \
   -e PASSWORD=your_password \
   -e ADMINPASSWORD=your_adminpassword \
   bestzwei/libretv:latest
+
+``` 
+
+
 
 对接影视接口
 饭团影视  `https://www.fantuan.tv/api.php/provide/vod/`

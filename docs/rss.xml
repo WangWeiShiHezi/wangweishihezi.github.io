@@ -1,6 +1,5 @@
 <?xml version='1.0' encoding='UTF-8'?>
-<rss xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/" version="2.0"><channel><title>石河子王卫的博客</title><link>https://wangweishihezi.github.io</link><description>我是石河子的王卫，这里记录着我的日常</description><copyright>石河子王卫的博客</copyright><docs>http://www.rssboard.org/rss-specification</docs><generator>python-feedgen</generator><image><url>https://avatars.githubusercontent.com/u/96246779?v=4&amp;size=64</url><title>avatar</title><link>https://wangweishihezi.github.io</link></image><lastBuildDate>Fri, 18 Jul 2025 10:38:01 +0000</lastBuildDate><managingEditor>石河子王卫的博客</managingEditor><ttl>60</ttl><webMaster>石河子王卫的博客</webMaster><item><title>LibreTV - 免费在线视频搜索与观看平台</title><link>https://wangweishihezi.github.io/post/LibreTV%20-%20-mian-fei-zai-xian-shi-pin-sou-suo-yu-guan-kan-ping-tai.html</link><description>
-
+<rss xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/" version="2.0"><channel><title>石河子王卫的博客</title><link>https://wangweishihezi.github.io</link><description>我是石河子的王卫，这里记录着我的日常</description><copyright>石河子王卫的博客</copyright><docs>http://www.rssboard.org/rss-specification</docs><generator>python-feedgen</generator><image><url>https://avatars.githubusercontent.com/u/96246779?v=4&amp;size=64</url><title>avatar</title><link>https://wangweishihezi.github.io</link></image><lastBuildDate>Fri, 18 Jul 2025 15:15:45 +0000</lastBuildDate><managingEditor>石河子王卫的博客</managingEditor><ttl>60</ttl><webMaster>石河子王卫的博客</webMaster><item><title>LibreTV - 免费在线视频搜索与观看平台</title><link>https://wangweishihezi.github.io/post/LibreTV%20-%20-mian-fei-zai-xian-shi-pin-sou-suo-yu-guan-kan-ping-tai.html</link><description>```
 docker run -d \
   --name libretv \
   --restart unless-stopped \
@@ -9,10 +8,15 @@ docker run -d \
   -e ADMINPASSWORD=your_adminpassword \
   bestzwei/libretv:latest
 
+``` 
+
+
+
 对接影视接口
 饭团影视  `https://www.fantuan.tv/api.php/provide/vod/`
 影视工厂  `https://cj.lziapi.com/api.php/provide/vod/`
-七七资源  `https://www.qiqidys.com/api.php/provide/vod/`。</description><guid isPermaLink="true">https://wangweishihezi.github.io/post/LibreTV%20-%20-mian-fei-zai-xian-shi-pin-sou-suo-yu-guan-kan-ping-tai.html</guid><pubDate>Fri, 18 Jul 2025 10:37:36 +0000</pubDate></item><item><title>RK3566刷armbian代码</title><link>https://wangweishihezi.github.io/post/RK3566-shua-armbian-dai-ma.html</link><description>RK3566刷armbian代码
+七七资源  `https://www.qiqidys.com/api.php/provide/vod/`
+。</description><guid isPermaLink="true">https://wangweishihezi.github.io/post/LibreTV%20-%20-mian-fei-zai-xian-shi-pin-sou-suo-yu-guan-kan-ping-tai.html</guid><pubDate>Fri, 18 Jul 2025 10:37:36 +0000</pubDate></item><item><title>RK3566刷armbian代码</title><link>https://wangweishihezi.github.io/post/RK3566-shua-armbian-dai-ma.html</link><description>RK3566刷armbian代码
 ssh登录  用户名root  密码1234 回车
 登录后会自动让修改root密码，修改成您想设置的密码即可（会让输入+确认共两次）
 shell选择1回车即可
