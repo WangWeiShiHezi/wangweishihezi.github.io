@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8'?>
-<rss xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/" version="2.0"><channel><title>石河子王卫的博客</title><link>https://wangweishihezi.github.io</link><description>我是石河子的王卫，这里记录着我的日常</description><copyright>石河子王卫的博客</copyright><docs>http://www.rssboard.org/rss-specification</docs><generator>python-feedgen</generator><image><url>https://avatars.githubusercontent.com/u/96246779?v=4&amp;size=64</url><title>avatar</title><link>https://wangweishihezi.github.io</link></image><lastBuildDate>Fri, 18 Jul 2025 15:15:45 +0000</lastBuildDate><managingEditor>石河子王卫的博客</managingEditor><ttl>60</ttl><webMaster>石河子王卫的博客</webMaster><item><title>LibreTV - 免费在线视频搜索与观看平台</title><link>https://wangweishihezi.github.io/post/LibreTV%20-%20-mian-fei-zai-xian-shi-pin-sou-suo-yu-guan-kan-ping-tai.html</link><description>```
+<rss xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/" version="2.0"><channel><title>石河子王卫的博客</title><link>https://wangweishihezi.github.io</link><description>我是石河子的王卫，这里记录着我的日常</description><copyright>石河子王卫的博客</copyright><docs>http://www.rssboard.org/rss-specification</docs><generator>python-feedgen</generator><image><url>https://avatars.githubusercontent.com/u/96246779?v=4&amp;size=64</url><title>avatar</title><link>https://wangweishihezi.github.io</link></image><lastBuildDate>Fri, 18 Jul 2025 15:21:09 +0000</lastBuildDate><managingEditor>石河子王卫的博客</managingEditor><ttl>60</ttl><webMaster>石河子王卫的博客</webMaster><item><title>LibreTV - 免费在线视频搜索与观看平台</title><link>https://wangweishihezi.github.io/post/LibreTV%20-%20-mian-fei-zai-xian-shi-pin-sou-suo-yu-guan-kan-ping-tai.html</link><description>```
 docker run -d \
   --name libretv \
   --restart unless-stopped \
@@ -55,7 +55,93 @@ ls -l
 请执行以下命令验证新配置已生效：
 `docker info | grep 'Docker Root Dir'`
 
-。</description><guid isPermaLink="true">https://wangweishihezi.github.io/post/RK3566-shua-armbian-dai-ma.html</guid><pubDate>Fri, 18 Jul 2025 10:29:10 +0000</pubDate></item><item><title>安装Ubuntu换阿里云的镜像</title><link>https://wangweishihezi.github.io/post/an-zhuang-Ubuntu-huan-a-li-yun-de-jing-xiang.html</link><description>配置你在使用apt时的镜像源，这是我设置的是 `http://mirrors.aliyun.com/ubuntu/` ，也就是阿里云的镜像源
+casaos_docker_reconfig.sh
+
+```
+#!/usr/bin/env bash
+# casaos_docker_reconfig.sh
+# 用途：安全停止 CasaOS 和 Docker 服务，修改 Docker 数据目录，迁移数据，重启服务
+# 使用方法：
+#   chmod +x casaos_docker_reconfig.sh
+#   sudo ./casaos_docker_reconfig.sh
+
+set -e
+DOCKER_NEW_ROOT='/mnt/Storage1/dockerdata'
+DOCKER_SERVICE_PATH='/lib/systemd/system/docker.service'
+BACKUP_SUFFIX='$(date +%Y%m%d%H%M%S)'
+
+log() {
+    echo '[$(date '+%Y-%m-%d %H:%M:%S')] $*'
+}
+
+stop_casaos_services() {
+    log 'Stopping CasaOS services...'
+    mapfile -t services &lt; &lt;(systemctl list-units --type=service --all | awk '{print $1}' | grep -E '^casaos.*\\.service$' || true)
+    for svc in '${services[@]}'; do
+        log 'Stopping $svc'
+        systemctl stop '$svc' || log 'Warning: Failed to stop $svc'
+    done
+}
+
+stop_docker_service() {
+    log 'Stopping Docker service...'
+    systemctl stop docker || log 'Warning: Failed to stop docker'
+}
+
+modify_docker_service() {
+    log 'Creating new Docker data directory if not exists: $DOCKER_NEW_ROOT'
+    mkdir -p '$DOCKER_NEW_ROOT'
+
+    if [ -f '$DOCKER_SERVICE_PATH' ]; then
+        log 'Backing up $DOCKER_SERVICE_PATH to ${DOCKER_SERVICE_PATH}.bak.${BACKUP_SUFFIX}'
+        cp '$DOCKER_SERVICE_PATH' '${DOCKER_SERVICE_PATH}.bak.${BACKUP_SUFFIX}'
+        log 'Modifying ExecStart to use new data root...'
+        sed -i.bak 's|ExecStart=/usr/bin/dockerd -H fd:// --containerd=/run/containerd/containerd.sock|ExecStart=/usr/bin/dockerd -H fd:// --containerd=/run/containerd/containerd.sock --data-root $DOCKER_NEW_ROOT|' '$DOCKER_SERVICE_PATH'
+    else
+        log 'Error: Docker service file not found at $DOCKER_SERVICE_PATH'
+        exit 1
+    fi
+}
+
+migrate_docker_data() {
+    if [ -d '/var/lib/docker' ]; then
+        log 'Migrating Docker data to $DOCKER_NEW_ROOT using rsync...'
+        rsync -avxP /var/lib/docker/ '$DOCKER_NEW_ROOT/'
+        log 'Data migration complete.'
+    else
+        log 'Warning: /var/lib/docker does not exist, skipping migration.'
+    fi
+}
+
+restart_services() {
+    log 'Reloading systemd daemon...'
+    systemctl daemon-reload
+    log 'Restarting Docker...'
+    systemctl restart docker
+    log 'Restarting CasaOS services...'
+    mapfile -t services &lt; &lt;(systemctl list-units --type=service --all | awk '{print $1}' | grep -E '^casaos.*\\.service$' || true)
+    for svc in '${services[@]}'; do
+        log 'Starting $svc'
+        systemctl start '$svc' || log 'Warning: Failed to start $svc'
+    done
+}
+
+main() {
+    if [ '$(id -u)' -ne 0 ]; then
+        log 'Error: Please run this script as root (use sudo).'
+        exit 1
+    fi
+    stop_casaos_services
+    stop_docker_service
+    modify_docker_service
+    migrate_docker_data
+    restart_services
+    log 'All done. Please verify Docker root dir with: docker info | grep 'Docker Root Dir''
+}
+
+main
+
+```。</description><guid isPermaLink="true">https://wangweishihezi.github.io/post/RK3566-shua-armbian-dai-ma.html</guid><pubDate>Fri, 18 Jul 2025 10:29:10 +0000</pubDate></item><item><title>安装Ubuntu换阿里云的镜像</title><link>https://wangweishihezi.github.io/post/an-zhuang-Ubuntu-huan-a-li-yun-de-jing-xiang.html</link><description>配置你在使用apt时的镜像源，这是我设置的是 `http://mirrors.aliyun.com/ubuntu/` ，也就是阿里云的镜像源
 
 。</description><guid isPermaLink="true">https://wangweishihezi.github.io/post/an-zhuang-Ubuntu-huan-a-li-yun-de-jing-xiang.html</guid><pubDate>Fri, 18 Jul 2025 09:20:03 +0000</pubDate></item><item><title>让自己的博客在互联网中永生</title><link>https://wangweishihezi.github.io/post/rang-zi-ji-de-bo-ke-zai-hu-lian-wang-zhong-yong-sheng.html</link><description># 如何创建这样一个博客
 
