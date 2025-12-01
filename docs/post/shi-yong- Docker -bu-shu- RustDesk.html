@@ -136,8 +136,7 @@ docker-compose up -d
 <pre class="notranslate"><code class="notranslate">cat ./data/hbbs/id_ed25519.pub
 </code></pre>
 <p>配置客户端： ID服务器：&lt;你的服务器IP&gt;:21116 中继服务器：&lt;你的服务器IP&gt;:21117 服务器密钥：复制上述公钥。</p>
-<p>将 <code class="notranslate">/rustdesk-server/data/hbbs</code> 目录里的 <code class="notranslate">id_ed25519</code> 和 <code class="notranslate">id_ed25519.pub</code> 两个文件或者文件内容复制到 <code class="notranslate">/rustdesk-server/data/hbbr</code> 目录里解决</p>
-<p><code class="notranslate">RustDesk reset by peer 连接被对方关闭 </code> 问题。</p>
+<p>将 <code class="notranslate">/rustdesk-server/data/hbbs</code> 目录里的 <code class="notranslate">id_ed25519</code> 和 <code class="notranslate">id_ed25519.pub</code> 两个文件或者文件内容复制到 <code class="notranslate">/rustdesk-server/data/hbbr</code> 目录里解决<code class="notranslate">RustDesk reset by peer 连接被对方关闭 </code> 问题。</p>
 <p>提示与建议</p>
 <p>定期更新服务：</p>
 <pre class="notranslate"><code class="notranslate">docker-compose pull &amp;&amp; docker-compose up -d

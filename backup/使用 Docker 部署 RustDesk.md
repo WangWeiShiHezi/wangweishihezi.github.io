@@ -80,9 +80,7 @@ cat ./data/hbbs/id_ed25519.pub
 
 配置客户端： ID服务器：<你的服务器IP>:21116 中继服务器：<你的服务器IP>:21117 服务器密钥：复制上述公钥。
 
-将 `/rustdesk-server/data/hbbs` 目录里的 `id_ed25519` 和 `id_ed25519.pub` 两个文件或者文件内容复制到 `/rustdesk-server/data/hbbr` 目录里解决
-
-`RustDesk reset by peer 连接被对方关闭 ` 问题。
+将 `/rustdesk-server/data/hbbs` 目录里的 `id_ed25519` 和 `id_ed25519.pub` 两个文件或者文件内容复制到 `/rustdesk-server/data/hbbr` 目录里解决`RustDesk reset by peer 连接被对方关闭 ` 问题。
 
 提示与建议
 
