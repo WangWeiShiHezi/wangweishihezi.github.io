@@ -42,21 +42,8 @@ extension=redis.so
 sudo systemctl restart apache2
 ```
 
+4.验证Redis扩展是否安装成功
 
+则表示安装我们可以再次执行 `php-m grepredis `命令来验证Redis扩展是否已安装成功。如果输出中包含 redis，!
+成功。
 
-```
-
-```
-
-
-
-
-```
-
-```
-
-
-
-```
-
-```
