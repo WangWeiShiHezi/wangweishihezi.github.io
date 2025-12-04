@@ -106,27 +106,46 @@ body{box-sizing: border-box;min-width: 200px;max-width: 900px;margin: 20px auto;
 <p>二、Btop安装</p>
 <p>目前，Btop 已经进入大多数主流 Linux 发行版的官方仓库，安装也超简单：在 Ubuntu 22.04 及更高版本中，你可以使用以下命令进行安装：</p>
 <pre class="notranslate"><code class="notranslate">sudo apt install btop
-
 </code></pre>
 <p>01启动Btop运行 Btop 也超简单，只需打开「终端」并执行命令：</p>
 <pre class="notranslate"><code class="notranslate">btop
-
 </code></pre>
 <p>02解决No UTF-8 咯擦了detected错误</p>
 <p>如果你在启动 btop 时，遇到以下错误提示：</p>
 <pre class="notranslate"><code class="notranslate">ERROR: No UTF-8 locale detected!
 
 Use --force-utf argument to force start if you're sure your terminal can handle it.
-
 </code></pre>
 <p>可以通过以下 2 种方法来搞定这个问题：</p>
 <p>临时方案：附加参数强制启动：</p>
-<pre class="notranslate"><code class="notranslate">
-
+<pre class="notranslate"><code class="notranslate">btop --force-utf
 </code></pre>
-<pre class="notranslate"><code class="notranslate">
-
-</code></pre></div>
+<p>永久方案：编辑你的~/.bashrc文件，在末尾添加这行代码：</p>
+<pre class="notranslate"><code class="notranslate">export LANG=en_US.UTF-8
+#保存后运行
+source ~/.bashrc
+</code></pre>
+<p>更换主题社区为 Btop 设计了很多精美主题。下面我们就以惊艳的 Catppuccin 主题为例，教你如何换肤：</p>
+<p>1、前往 Catppuccin 主题的发布页，下载themes.tar.gz包：</p>
+<pre class="notranslate"><code class="notranslate">wget https://github.com/catppuccin/btop/releases/download/1.0.0/themes.tar.gz
+</code></pre>
+<p>2、解压之后，你会得到 4 种不同风格的主题：</p>
+<pre class="notranslate"><code class="notranslate">tar zxvf themes.tar.gz
+</code></pre>
+<p>如何报错用下面命令</p>
+<pre class="notranslate"><code class="notranslate">tar xvf themes.tar.gz
+</code></pre>
+<p>3、将.theme主题文件复制到~/.config/btop/themes目录下。</p>
+<pre class="notranslate"><code class="notranslate">cp themes/*.theme ~/.config/btop/themes
+</code></pre>
+<p>如何报错用下面命令</p>
+<pre class="notranslate"><code class="notranslate">cd ~/.config/btop/themes
+cp /themes/*.* .
+</code></pre>
+<p>4、编辑~/.config/btop/btop.conf文件，找到color_theme = "Default"这行，改成你喜欢的主题名称，例如：</p>
+<pre class="notranslate"><code class="notranslate">color_theme = "catppuccin_macchiato"
+</code></pre>
+<p>5、重新启动，就能看到新主题生效啦！比如我换的 Catppuccin Macchiato 风格。</p></div>
 <div style="font-size:small;margin-top:8px;float:right;"></div>
 
 <button class="btn btn-block" type="button" onclick="openComments()" id="cmButton">评论</button>

@@ -21,14 +21,12 @@ Btop是一个对 Linux top 命令的改进版本，提供了更丰富的功能�
 
 ````
 sudo apt install btop
-
 ````
 
 01启动Btop运行 Btop 也超简单，只需打开「终端」并执行命令：
 
 ````
 btop
-
 ````
 
 02解决No UTF-8 咯擦了detected错误
@@ -39,21 +37,59 @@ btop
 ERROR: No UTF-8 locale detected!
 
 Use --force-utf argument to force start if you're sure your terminal can handle it.
-
 ````
 
 可以通过以下 2 种方法来搞定这个问题：
 
 临时方案：附加参数强制启动：
 
-
+````
+btop --force-utf
 ````
 
+永久方案：编辑你的~/.bashrc文件，在末尾添加这行代码：
 
 ````
-
-
+export LANG=en_US.UTF-8
+#保存后运行
+source ~/.bashrc
 ````
 
+更换主题社区为 Btop 设计了很多精美主题。下面我们就以惊艳的 Catppuccin 主题为例，教你如何换肤：
+
+1、前往 Catppuccin 主题的发布页，下载themes.tar.gz包：
 
 ````
+wget https://github.com/catppuccin/btop/releases/download/1.0.0/themes.tar.gz
+````
+
+2、解压之后，你会得到 4 种不同风格的主题：
+````
+tar zxvf themes.tar.gz
+````
+
+如何报错用下面命令
+
+````
+tar xvf themes.tar.gz
+````
+
+3、将.theme主题文件复制到~/.config/btop/themes目录下。
+
+````
+cp themes/*.theme ~/.config/btop/themes
+````
+
+如何报错用下面命令
+
+````
+cd ~/.config/btop/themes
+cp /themes/*.* .
+````
+
+4、编辑~/.config/btop/btop.conf文件，找到color_theme = "Default"这行，改成你喜欢的主题名称，例如：
+````
+color_theme = "catppuccin_macchiato"
+````
+
+5、重新启动，就能看到新主题生效啦！比如我换的 Catppuccin Macchiato 风格。
